@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     //URL for news data from The Guardian.
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?api-key=c950363b-c7d7-4c5a-a17f-27d7a91f674c";
+            "https://content.guardianapis.com/search?api-key=c950363b-c7d7-4c5a-a17f-27d7a91f674c&show-tags=contributor";
 
     private NewsAdapter nAdapter;
     private TextView nEmptyStateTextView;
@@ -41,9 +41,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         setContentView(R.layout.list_view);
 
         Log.i(LOG_TAG, "TEST: MainActivity onCreate is being called!!");
+
         //Finds the ListView in the layout.
         ListView newsListView = (ListView) findViewById(R.id.list_item);
 
+        //Finds the empty state TextView in the layout.
         nEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
         newsListView.setEmptyView(nEmptyStateTextView);
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         //Checks if the network is active.
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        if (activeNetwork == null && activeNetwork.isConnected()) {
+        if (activeNetwork != null && activeNetwork.isConnected()) {
             //Gets reference to LoaderManager, to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 

@@ -115,12 +115,20 @@ public final class QueryUtils {
         List<News> news = new ArrayList<>();
         try {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
-            JSONArray newsArray = baseJsonResponse.getJSONArray("results");
+
+            JSONObject response = baseJsonResponse.getJSONObject("response");
+
+            JSONArray newsArray = response.getJSONArray("results");
+
 
             for (int i = 0; i < newsArray.length(); i++) {
 
-                //Gets the JSON objects from the Guardian API.
+                //Gets the JSON Object that's currently at "i".
                 JSONObject results = newsArray.getJSONObject(i);
+
+                JSONArray tagsArray = results.getJSONArray("tags");
+
+                JSONObject tags = tagsArray.getJSONObject(0);
 
                 //Creates a string for the JSON object that contains the title.
                 String title = results.getString("webTitle");
@@ -129,7 +137,7 @@ public final class QueryUtils {
                 String category = results.getString("sectionName");
 
                 //Creates a string for the JSON object that contains the author.
-                String author = results.getString("contributor");
+                String author = tags.getString("webTitle");
 
                 //Creates a string for the JSON object that contains the date.
                 String date = results.getString("webPublicationDate");
@@ -142,7 +150,6 @@ public final class QueryUtils {
                 News newsArticle = new News(title, category, author, date, url);
 
                 news.add(newsArticle);
-
             }
 
         } catch (JSONException e) {

@@ -1,12 +1,17 @@
 package com.example.android.newsapp;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<News> {
@@ -36,6 +41,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
         //Finds and displays TextView for the article writer.
         TextView author = (TextView) listItemView.findViewById(R.id.author_textview);
         author.setText(currentNews.getAuthor());
+
+        //TODO: Finds and displays TextView for the publication date.
 
         //Finds and displays TextView for the publication date.
         TextView date = (TextView) listItemView.findViewById(R.id.date_published);
