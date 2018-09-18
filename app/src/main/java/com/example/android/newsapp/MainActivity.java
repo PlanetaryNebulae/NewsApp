@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     //URL for news data from The Guardian.
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?api-key=c950363b-c7d7-4c5a-a17f-27d7a91f674c&show-tags=contributor";
+            "https://content.guardianapis.com/search?q=videogames&api-key=c950363b-c7d7-4c5a-a17f-27d7a91f674c&show-tags=contributor";
 
     private NewsAdapter nAdapter;
     private TextView nEmptyStateTextView;
@@ -46,11 +46,12 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         ListView newsListView = (ListView) findViewById(R.id.list_item);
 
         //Finds the empty state TextView in the layout.
-        nEmptyStateTextView = (TextView)findViewById(R.id.empty_view);
+        nEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         newsListView.setEmptyView(nEmptyStateTextView);
 
         nAdapter = new NewsAdapter(this, new ArrayList<News>());
 
+        //Sets the adapter to the listview so it can populate the UI.
         newsListView.setAdapter(nAdapter);
 
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

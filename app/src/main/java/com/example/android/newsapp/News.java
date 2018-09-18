@@ -17,10 +17,6 @@ public class News {
     //Provides String for news URL.
     private String nUrl;
 
-    //TODO: Provides String for news desciption.
-    //private String nDescription;
-
-    //TODO: Add news description here if you figure out how.
     public News(String aTitle, String aCategory, String aAuthor, String aDate, String aUrl) {
 
         nTitle = aTitle;
@@ -28,7 +24,6 @@ public class News {
         nAuthor = aAuthor;
         nDate = aDate;
         nUrl = aUrl;
-        //TODO: nDescription = aDescription;
     }
 
     //Gets title of news article.
@@ -41,19 +36,19 @@ public class News {
         return nCategory;
     }
 
+    //Gets author of news article.
     public String getAuthor() {
         return nAuthor;
     }
 
+    //Gets date of news article.
     public String getDate() {
         return nDate;
     }
 
+    //Gets URL of news article.
     public String getUrl() {
         return nUrl;
     }
 
-    //Gets description of news article.
-    //TODO: public String getDescription() {
-    //return nDescription;
 }

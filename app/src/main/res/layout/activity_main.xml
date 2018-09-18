@@ -4,35 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="@dimen/layout_padding"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/title_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title" />
+        android:text="Title"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/title_textsize"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/text_padding"
+        android:paddingTop="@dimen/text_padding">
+
+        <TextView
+            android:id="@+id/author_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/date_published"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/category_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Category" />
+        android:textColor="@android:color/black"
+        android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/author_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Author" />
-
-    <TextView
-        android:id="@+id/date_published"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date Published" />
-
-    <TextView
-        android:id="@+id/description_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description" />
 </LinearLayout>

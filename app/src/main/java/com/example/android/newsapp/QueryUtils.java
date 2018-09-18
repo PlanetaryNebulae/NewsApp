@@ -120,7 +120,6 @@ public final class QueryUtils {
 
             JSONArray newsArray = response.getJSONArray("results");
 
-
             for (int i = 0; i < newsArray.length(); i++) {
 
                 //Gets the JSON Object that's currently at "i".
@@ -144,8 +143,6 @@ public final class QueryUtils {
 
                 //Creates a string for the JSON object that contains the URL.
                 String url = results.getString("webUrl");
-
-                //TODO: String description = results.getString("unsure");
 
                 News newsArticle = new News(title, category, author, date, url);
 
