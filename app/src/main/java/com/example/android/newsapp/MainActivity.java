@@ -104,15 +104,28 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         View progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(GONE);
 
-        //Sets empty display text to "No news data found".
-        nEmptyStateTextView.setText(R.string.empty);
-
         //Clears the adapter of any existing data.
         nAdapter.clear();
 
         //Updates ListView if there's valid news to add.
         if (news != null && !news.isEmpty()) {
             nAdapter.addAll(news);
+        }
+
+        //Checks the state of network connectivity by referencing the ConnectivityManager.
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        //Checks if the network is active.
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        //If the network is active but there is no news data, sets text to 'No news.'
+        //Else the network isn't active, sets text to 'No internet.'
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            //Sets empty display text to "No news data found".
+            nEmptyStateTextView.setText(R.string.empty);
+        } else {
+            //Sets empty state to "Unable to connect to internet."
+            nEmptyStateTextView.setText(R.string.no_internet);
         }
     }
 
