@@ -5,10 +5,12 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     //URL for news data from The Guardian.
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?q=videogames&api-key=c950363b-c7d7-4c5a-a17f-27d7a91f674c&show-tags=contributor";
+            "https://content.guardianapis.com/search";
 
     private NewsAdapter nAdapter;
     private TextView nEmptyStateTextView;
@@ -92,9 +94,24 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        Log.i(LOG_TAG, "TEST: onCreateLoader() called!!");
-        //New loader for the url.
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String newsTopic = sharedPrefs.getString(
+                getString(R.string.settings_news_topic_key),
+                getString(R.string.settings_news_topic_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("api-key", "c950363b-c7d7-4c5a-a17f-27d7a91f674c");
+        uriBuilder.appendQueryParameter("q", newsTopic);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
