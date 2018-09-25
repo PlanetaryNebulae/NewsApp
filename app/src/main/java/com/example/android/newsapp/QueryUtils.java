@@ -127,16 +127,21 @@ public final class QueryUtils {
 
                 JSONArray tagsArray = results.getJSONArray("tags");
 
-                JSONObject tags = tagsArray.getJSONObject(0);
+                //Checks if there's an author, and concatenates it if there is one.
+                String author = "";
+                for (int j = 0; j < tagsArray.length(); j++) {
+                    JSONObject tags = tagsArray.getJSONObject(j);
+
+                    //Creates a string for the JSON object that contains the author.
+                    String newsAuthor = tags.getString("webTitle");
+                    author += (author == "") ? newsAuthor : (author + ", " + newsAuthor);
+                }
 
                 //Creates a string for the JSON object that contains the title.
                 String title = results.getString("webTitle");
 
                 //Creates a string for the JSON object that contains the category.
                 String category = results.getString("sectionName");
-
-                //Creates a string for the JSON object that contains the author.
-                String author = tags.getString("webTitle");
 
                 //Creates a string for the JSON object that contains the date.
                 String date = results.getString("webPublicationDate");

@@ -14,6 +14,12 @@ public class NewsAdapter extends ArrayAdapter<News> {
     //Separates the date and time.
     private static final String DATE_SEPARATOR = "T";
 
+    //Separates the authors if there's an "and" between them.
+    private static final String AND_AUTHOR_SEPARATOR = "and";
+
+    //Separates the authors if there's a "," between them.
+    private static final String COMMA_AUTHOR_SEPARATOR = ",";
+
     public NewsAdapter(Context context, List<News> news) {
         super(context, 0, news);
     }
@@ -36,9 +42,26 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView category = (TextView) listItemView.findViewById(R.id.category_textview);
         category.setText(currentNews.getCategory());
 
+        //Finds the authors.
+        String originalAuthor = currentNews.getAuthor();
+
+        //A split string for the authors.
+        String firstAuthor;
+
+        //An if/else statement to divide the authors and only show the first one.
+        if (originalAuthor.contains(AND_AUTHOR_SEPARATOR)) {
+            String[] parts = originalAuthor.split(AND_AUTHOR_SEPARATOR);
+            firstAuthor = parts[0];
+        } else if (originalAuthor.contains(COMMA_AUTHOR_SEPARATOR)) {
+            String[] parts = originalAuthor.split(COMMA_AUTHOR_SEPARATOR);
+            firstAuthor = parts[0];
+        } else {
+            firstAuthor = originalAuthor;
+        }
+
         //Finds and displays TextView for the article writer.
         TextView author = (TextView) listItemView.findViewById(R.id.author_textview);
-        author.setText(currentNews.getAuthor());
+        author.setText(firstAuthor);
 
         //Finds the publication date and time.
         String originalDate = currentNews.getDate();
